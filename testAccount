@@ -1,2 +1,0 @@
-def account():
-  retunrn 2+2

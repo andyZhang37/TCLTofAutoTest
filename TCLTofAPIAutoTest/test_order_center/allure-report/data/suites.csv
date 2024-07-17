@@ -1,0 +1,8 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sat Jul 13 15:25:06 CST 2024","Sat Jul 13 15:25:06 CST 2024","687","","Test_OderCenter","Test_OderCenter","","","test_POInfo","校验查询POPE24070200024详情接口返回code是success"
+"failed","Sat Jul 13 15:25:02 CST 2024","Sat Jul 13 15:25:05 CST 2024","2493","","Test_OderCenter","Test_OderCenter","","","test_POSave","校验PO保存接口返回消息成功"
+"passed","Sat Jul 13 15:25:10 CST 2024","Sat Jul 13 15:25:11 CST 2024","379","","Test_OderCenter","Test_OderCenter","","","test_QuerySOList","校验查询审核状态SO接口返回消息是success"
+"passed","Sat Jul 13 15:25:06 CST 2024","Sat Jul 13 15:25:10 CST 2024","3752","","Test_OderCenter","Test_OderCenter","","","test_PoExport","校验导出POPE24053000002内容中包含[Content_Types].xml"
+"passed","Sat Jul 13 15:25:10 CST 2024","Sat Jul 13 15:25:10 CST 2024","132","","Test_OderCenter","Test_OderCenter","","","test_PoImport","校验importPO接口返回200"
+"passed","Sat Jul 13 15:25:05 CST 2024","Sat Jul 13 15:25:06 CST 2024","576","","Test_OderCenter","Test_OderCenter","","","test_PoSubmit","校验PO提交接口返回消息是success"
+"passed","Sat Jul 13 15:25:02 CST 2024","Sat Jul 13 15:25:02 CST 2024","460","","Test_OderCenter","Test_OderCenter","","","查询新建的po列表-测试用例标题","查询新建的po列表-测试用例描述"

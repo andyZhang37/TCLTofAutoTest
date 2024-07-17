@@ -1,0 +1,1 @@
+[{"name":"Jenkins","type":"jenkins","url":"http://127.0.0.1:8082/","buildOrder":56,"buildName":"test_tcl_tof_api\\test_order_center #56","buildUrl":"http://127.0.0.1:8082/job/TCL_TOF_API_Test/56/","reportName":"AllureReport","reportUrl":"http://127.0.0.1:8082/job/TCL_TOF_API_Test/56/allure"}]

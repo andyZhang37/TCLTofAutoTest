@@ -1,0 +1,123 @@
+name: zhangsan
+age: 18
+---
+name: lisi
+age: 25
+---
+name: wangwu
+age: 33
+---
+name: libai
+age: 78
+---
+key1: 100
+---
+#key2: 1000 注释
+# 表示数组
+- A
+- B
+- C
+---
+key: [value1, value2, ...]
+---
+-
+ - A
+ - B
+ - C
+
+---
+companies:
+    -
+        id: 1
+        name: company1
+        price: 200W
+    -
+        id: 2
+        name: company2
+        price: 500W
+---
+companies: [{id: 1,name: company1,price: 200W},{id: 2,name: company2,price: 500W}]
+---
+#  数组和对象构成复合结构
+languages:
+  - Ruby
+  - Perl
+  - Python
+websites:
+  YAML: yaml.org
+  Ruby: ruby-lang.org
+  Python: python.org
+  Perl: use.perl.org
+
+boolean:
+    - TRUE  #true,True都可以
+    - FALSE  #false，False都可以
+float:
+    - 3.14
+    - 6.8523015e+5  #可以使用科学计数法
+int:
+    - 123
+    - 0b1010_0111_0100_1010_1110    #二进制表示
+null:
+    nodeName: 'node'
+    parent: ~  #使用表示
+string:
+    - 哈哈
+    - 'Hello world'  #可以使用双引号或者单引号包裹特殊字符
+    - newline
+      newline2    #字符串可以拆成多行，每一行会被转化成一个空格
+date:
+    - 2018-02-17    #日期必须使用格式，即
+datetime:
+    -  2018-02-17T15:02:31+08:00    #时间使用格式，时间和日期之间使用连接，最后使用代表时区
+---
+defaults: &defaults
+  adapter:  postgres
+  host:     localhost
+
+development:
+  database: myapp_development
+  <<: *defaults
+
+test:
+  database: myapp_test
+  <<: *defaults
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+{{ include "service.labels.standard" . | indent 4 }}
+{{ include "service.logging.deployment.label" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+{{ include "service.labels.standard" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{ include "service.labels.standard" . | indent 8 }}
+    spec:
+{{- if .Values.imagePullSecret.enable }}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecret.name }}
+{{- end }}
+      containers:
+        - name: {{ .Release.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.Version }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+{{- range $name, $value := .Values.env.open }}
+{{- if not (empty $value) }}
+          - name: {{ $name | quote }}
+            value: {{ $value | quote }}
+{{- end }}
+{{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
