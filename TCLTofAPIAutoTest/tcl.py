@@ -43,4 +43,3 @@ print(type(user_info))
 user_dict = json.loads(user_info)
 
 print(type(user_dict))
-# {u'gender': u'male', u'age': 28, u'name': u'john'}
