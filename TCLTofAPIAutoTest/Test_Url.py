@@ -53,4 +53,3 @@ class Test_Url:
 
 
 
-# TestUrl.test_url(self,"https://www.baidu.com/")
