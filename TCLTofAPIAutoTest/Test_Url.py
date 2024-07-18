@@ -51,5 +51,6 @@ class Test_Url:
         res = requests.get(url=url)
         print(res.status_code)
 
-
+    def test(self):
+        pass
 
