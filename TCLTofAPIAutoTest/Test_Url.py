@@ -54,5 +54,4 @@ class Test_Url:
     def test(self):
         pass
 
-    def test2(self):
-        pass
+ 
