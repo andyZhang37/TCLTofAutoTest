@@ -15,8 +15,8 @@ import allure
 import pytest
 import requests
 
-from test_tcl_tof_api.lib.LoginDEV import login
-from test_tcl_tof_api.lib.read_yaml import read_yaml
+from lib.LoginDEV import login
+from lib.read_yaml import read_yaml
 
 # 调用公共登录方法，这里参数是秘鲁账号
 login = login(url='https://tofobg-dev-gateway.eads.tcl.com/oauth/login?type=account&username=PEdongming2.zhang'
@@ -48,16 +48,16 @@ class Test_OderCenter:
         assert po_dict["message"] == "success"
 
     # 查询订单状态是“草稿”的PO列表，取第列表的第一个PO号，返回PO号，方便后面的提交使用
-    def query_po_list_for_submit(self) :
-        url = data_list[0]["url1"]
-        data = data_list[0]["data"]
-        res = requests.post(url=url, json=data, headers=headers)
+    def query_po_list_for_submit(self) -> str:
+        self.url = data_list[0]["url1"]
+        self.data = data_list[0]["data"]
+        self.res = requests.post(url=self.url, json=self.data, headers=headers)
         # 返回的数据字符串转为字典
-        po_dict = json.loads(res.text)
+        self.po_dict = json.loads(self.res.text)
         # 取出po号，给后面的提交接口使用
-        Test_OderCenter.custOrderNo = po_dict["data"]["content"][0]["custOrderNo"]
+        self.custOrderNo = self.po_dict["data"]["content"][0]["custOrderNo"]
         # 返回po号
-        return Test_OderCenter.custOrderNo
+        return self.custOrderNo
 
     # 校验PO保存接口返回消息成功
     @allure.description('校验PO保存接口返回消息成功')
@@ -76,7 +76,7 @@ class Test_OderCenter:
     def test_PoSubmit(self):
         url = data_list[2]["url3"]
         # po号从查询列表方法调过来
-        data = [{"custOrderNo":Test_OderCenter.queryPOListForSubmit(self) }]
+        data = [{"custOrderNo": Test_OderCenter.query_po_list_for_submit(self)}]
         res = requests.post(url=url, json=data, headers=headers)
         po_dict = json.loads(res.text)
         assert po_dict["message"] == "success"
